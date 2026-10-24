@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Physical Computing Fall 2026</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <style>
+    :root {
+      --ink: #203047;
+      --muted: #64748b;
+      --accent: #287c91;
+      --accent-light: #e8f4f5;
+      --page: #f3f6f8;
+      --card: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    h1 {
+      color: var(--ink);
+      font-size: 30px;
+      line-height: 1.2;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--accent);
+      font-size: 25px;
+      line-height: 1.3;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      color: var(--ink);
+      font-size: 18px;
+    }
+
+    p {
+      max-width: 75ch;
+    }
+
+    img {
+      box-sizing: border-box;
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .w3-sidebar {
+      border-right: 1px solid #e2e8f0;
+      background: #ffffff !important;
+      color: var(--ink);
+    }
+
+    .w3-sidebar .w3-padding-64 {
+      padding-top: 42px !important;
+      padding-bottom: 32px !important;
+      color: var(--accent);
+      line-height: 1.45;
+    }
+
+    .w3-bar-block .w3-button {
+      border-radius: 8px;
+    }
+
+    .w3-main {
+      box-sizing: border-box;
+      padding: 32px 24px 0;
+    }
+
+    .hero {
+      margin-top: 28px !important;
+      padding: clamp(28px, 6vw, 64px) !important;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #ffffff;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+    }
+
+    .hero h1:first-child {
+      color: var(--accent);
+      font-size: clamp(36px, 6vw, 62px);
+    }
+
+    .hero h1:not(:first-child) {
+      color: var(--muted);
+      font-size: clamp(22px, 3vw, 32px);
+    }
+
+    .content-section {
+      margin-top: 32px;
+      padding: clamp(22px, 4vw, 40px);
+      border: 1px solid #e5ebef;
+      border-radius: 16px;
+      background: var(--card);
+      box-shadow: 0 8px 24px rgb(32 48 71 / 5%);
+    }
+
+    .content-section > h1:first-child {
+      margin-top: 0;
+    }
+
+    .content-section > h2:not(:first-child) {
+      margin-top: 34px;
+    }
+
+    .content-section hr {
+      width: 48px !important;
+      margin: 14px 0 28px;
+      border: 0 !important;
+      border-top: 4px solid var(--accent) !important;
+      opacity: 0.7;
+    }
+
+    .content-section ul,
+    .content-section ol {
+      padding-left: 1.4em;
+    }
+
+    .content-section li {
+      padding-left: 4px;
+      margin-bottom: 8px;
+    }
+
+    .content-section li::marker {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0 32px;
+    }
+
+    .grid img {
+      display: block;
+      width: 100%;
+      height: 220px;
+      padding: 0;
+      border: 1px solid #e5ebef;
+      border-radius: 12px;
+      background: #f8fafb;
+      cursor: pointer;
+      object-fit: cover;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .grid img:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgb(32 48 71 / 12%);
+    }
+
+    .container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      padding-top: 56.25%;
+    }
+
+    .responsive-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .section-divider {
+      width: min(180px, 30%);
+      margin: 42px auto;
+      border: 0;
+      border-top: 2px solid #d8e2e8;
+    }
+
+    .project-concept-image {
+      overflow: hidden;
+      border: 1px solid #e5ebef;
+      border-radius: 12px;
+    }
+
+    .modal-caption {
+      color: #ffffff;
+    }
+
+    .page-footer {
+      margin-top: 56px !important;
+      padding: 24px !important;
+      background: #e8eef2 !important;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .w3-main {
+        padding-right: 16px;
+        padding-left: 16px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .w3-main {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+        padding: 16px 12px 0;
+      }
+
+      .hero {
+        padding: 28px 22px !important;
+      }
+
+      .content-section {
+        padding: 22px 18px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .grid img {
+        height: auto;
+        max-height: 320px;
+        aspect-ratio: 4 / 3;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-light-grey w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:200px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-display-topleft" style="display:none;font-size:22px"></a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>IXD<br>DESN 30146<br>Fall 2026</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#Home" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
+    <a href="#Module1" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Module 1</a> 
+    <a href="#Activity1" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Activity 1</a> 
+    <a href="#Activity2" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Activity 2</a>
+    <a href="#Activity3" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Activity 3</a>
+    <a href="#ResearchActivity" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Research Activity</a>
+    <a href="#ProjectConcept" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Project Concept</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens
+<header class="w3-container w3-top w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Menu</span>
+</header> -->
+
+<!-- 
+  if you want to link your image to a video use one of the following alt links as an example:
+
+  alt="test1Lorem ipsum dolor sit amet, consectetur adipiscing elit test1Lorem ipsum dolor sit amet, consectetur adipiscing elit <a href='https://www.youtube.com/embed/tgbNymZ7vqY' target='_blank'><p>Project Video Link</p></a>"> 
+  alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit <div class='container'><iframe class='responsive-iframe' src='https://www.youtube.com/embed/tgbNymZ7vqY'></iframe></div>">
+
+-->
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<main class="w3-main" style="margin-left:220px;margin-right:20px">
+
+  <!-- Header -->
+  <div class="w3-container hero" id="default">
+    <h1 class="w3-jumbo" id="Home"><b>Physical Computing</b></h1>
+    <h1 class="w3-xxxlarge w3-text-blue"><b>Weekly Activity Template</b></h1>
+    <h1 class="w3-xxxlarge w3-text-blue"><b>Ho Yi Chloe Tang</b></h1>
+    <hr class="w3-round">
+  </div>
+  <!-- Boilerplate -->
+  <section id="Module1" class="w3-container content-section">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Module 1</b></h1>
+    <hr class="w3-round">
+    <h2>Activity Research</h2>
+    <h3>PLACEHOLDER TEXT, put a description here or you will lose grades
+    </h3>
+  </section>
+  
+  <!-- Project 1 Photo grid (modal) -->
+  <section id="Activity1" class="content-section">
+    <h2>Activity 1</h2>
+    <div class="grid">
+      <img src="images/Activity1/1.jpg" style="width:100%" onclick="onClick(this)" alt="Connecting to my laptop"> 
+      <img src="images/Activity1/2.jpg" style="width:100%" onclick="onClick(this)" alt="Opening Arduino IDE to write code">
+      <img src="images/Activity1/3.jpg" style="width:100%" onclick="onClick(this)" alt="Getting familiar with the Arduino IDE  interface">
+      <img src="images/Activity1/4.jpg" style="width:100%" onclick="onClick(this)" alt="Starting with a basic blink sketch to test the Arduino board">
+      <img src="images/Activity1/5.jpg" style="width:100%" onclick="onClick(this)" alt="Testing the blink sketch on the Arduino board">
+    </div>
+  </section>
+  
+  <hr class="section-divider">
+
+  <section id="Activity2" class="content-section">
+    <h2>Activity 2</h2>
+    <div class="grid">
+      <img src="images/Activity2/6.jpg" style="width:100%" onclick="onClick(this)" alt="I have completeed the Protopie 101 crash course and I have learned how to use the Protopie software to create interactive prototypes.">
+      <img src="images/Activity2/7.jpg" style="width:100%" onclick="onClick(this)" alt="Making sure I'm connected to Protopie enterprise.">
+      <img src="images/Activity2/8.jpg" style="width:100%" onclick="onClick(this)" alt="Connected Arudino board and opened TempHumid file. Initally, I was not able to connect due to having a different Arduino Sensor Kit Base.">
+      <img src="images/Activity2/9.jpg" style="width:100%" onclick="onClick(this)" alt="I then opened Protopie Connect and tried to run the Arduino. I failed again due to opening multiple Arduino files.">
+      <img src="images/Activity2/10.jpg" style="width:100%" onclick="onClick(this)" alt="After confirming that the Wifi connection and IP address were correct, I was able to scan the given QR code and having the final product working on my Protopie app.">
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section id="Activity3" class="content-section">
+    <h2>Activity 3</h2>
+    <div class="grid">
+      <img src="images/Activity3/11.jpg" style="width:100%" onclick="onClick(this)" alt="Created an account in Touch Designer and downloaded the software. I then opened the Touch Designer software and familiarized myself with the interface.">
+      <img src="images/Activity3/12.jpg" style="width:100%" onclick="onClick(this)" alt="Using an Arduino Sketch called'PotSeedShield' to test the potentiometer by controlling the rotary knob.">
+      <img src="images/Activity3/13.jpg" style="width:100%" onclick="onClick(this)" alt="Closed Serial Monitor and send data from Arduino to Touch Designer.">
+      <img src="images/Activity3/14.jpg" style="width:100%" onclick="onClick(this)" alt="Followed class tutorial to create a simple shape that responds to the Arduino Serial data.">
+      <img src="images/Activity3/15.jpg" style="width:100%" onclick="onClick(this)" alt="Photo of me controlling the rotary potentiometer and the shape in Touch Designer responding to the data.">
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section id="ResearchActivity" class="content-section">
+    <h2>Research Activity</h2>
+    <hr class="w3-round">
+    <h2>Consumer Trend Research</h2>
+    <p>I did research on the topic of <b>Caretaking in the Digital Age</b>, which was published on February 2026.</p>
+    <p>It lists what digital technology are used to support unpaid caretaking, such as remote monitoring and medication management systems.</p>
+    <p>Around 27% of caregivers use medication management tools. 58% of caregivers over age 45 use at least one technology support. It helps us narrow down main users we’re targeting and the type of app that can be useful towards them.</p>
+    <div class="grid">
+      <img src="images/Research/1.png" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+      <img src="images/Research/2.png" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+      <img src="images/Research/3.png" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+    </div>
+    <h2>Personas Research</h2>
+    <h3><b>Persona:</b> Ethan Wesker</h3>
+    <p>Ethan is a 56 year old caregiver who has to care for his wife Mia to treat her chronic illness. Ethan uses a digital medication systems tool to aid her health journey but limitedly, while Mia is reluctant since she lacks technological knowledge.</p>
+    <p>Ethan is Gen X. Many people in his generation understand how to use basic technological tools, but has a cautious approach and hesitates using technology that potentially invades their privacy. This could dissuade them from  using products/service that needs their medical records or health data, especially ones that involves the usage of AI.</p>
+    <div>
+      <h3>Behaviours:</h3>
+      <ul>
+        <li>58% of caregivers over age 45 use at least one technology support, compared with 35% of those ages 18 to 44. This shows that older caregivers who provide more intensive care are more likely to rely on technology.</li>
+        <li>More than half (54%) of those providing six or more hours of care per week use at least one type of technology, compared to 46% of caregivers who provide care for fewer than six hours weekly.</li>
+        <li>Although hesitant, Ethan is reliant on technology in his daily routine with Mia.</li>
+      </ul>
+      <h3>Buying Priorities:</h3>
+      <ul>
+        <li>Common barriers that unpaid caretakers face include care recipients’ unwillingness or limited ability to use digital tools (23 percent); privacy or security concerns (20 percent); and lack of awareness about available options (18 percent).</li>
+        <li>Additional challenges, such as lack of time, insufficient technical support, and high costs, further hinder technology use.</li>
+        <li>Privacy and security are the two main concerns for Ethan. It also comes with awareness about available options, convenience, sufficient technical support, and low costs.</li>
+      </ul>
+      <h3>Actions:</h3>
+      <ul>
+        <li>48% of unpaid caregivers use at least one type of technology to help provide care to their loved ones, primarily parents, minor children, friends or neighbours, and spouses or partners. </li>
+        <li>Medication management tools such as refill alerts and reminders are most common, with 27% of caregivers using them.</li>
+        <li>Ethan frequently uses technological tools such as medication reminders and refill alerts to remind Mia to take her medicine on time.</li>
+      </ul>
+    </div>
+    <div class="grid">
+      <img src="images/Research/4.jpeg" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+      <img src="images/Research/5.jpeg" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+      <img src="images/Research/6.jpeg" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+    </div>
+    <h2>HMI Research</h2>
+
+    <h3>Two Problem Spaces</h3>
+    <ol>
+      <li>Older adults and caregivers may have different levels of digital literacy, making some caregiving apps difficult to learn and use.</li>
+      <li>Caregivers may be feel reluctant sharing health-related information through apps, especially when they don’t understand how their data is stored or used.</li>
+    </ol>
+    <h3>Two HMW Statements</h3>
+    <ol>
+      <li>How might we make caregiving support feel effortless and seamlessly fit into everyday routines?</li>
+      <li>How might we empower people receiving care to maintain control over their  health data while using caregiving technologies?</li>
+    </ol>
+
+    <h3>Question 1–4</h3>
+
+    <ol>
+      <li>
+        <h3>Is it based on an existing problem or insight?</h3>
+        <ul>
+          <li>
+            Yes. Caregiving is a huge responsibility, especially for
+            unpaid caregivers who are often related to the patient.
+            The job often involves multiple responsibilities and
+            routines. With the advancement of technology, we can
+            explore more ways to integrate technology with healthcare.
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <h3>Does it track a desired outcome?</h3>
+        <ul>
+          <li>
+            Yes. The desired outcome is caregiving support that
+            requires less effort, increases user satisfaction, and
+            fits naturally into daily life.
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <h3>Is it written positively?</h3>
+        <ul>
+          <li>
+            Yes. There is potential for greater integration as the
+            world develops more advanced tools and newer generations
+            become more tech-savvy.
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <h3>Is it broad enough to ensure many creative ideas?</h3>
+        <ul>
+          <li>
+            Yes. It allows for many creative solutions, such as
+            combining medication apps with physical devices,
+            transportation support, health monitoring, and
+            financial management.
+          </li>
+        </ul>
+      </li>
+    </ol>
+
+    <div class="grid">
+      <img src="images/Research/7.jpeg" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+      <img src="images/Research/8.jpeg" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+      <img src="images/Research/9.jpeg" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+    </div>
+    <h2>Project Path</h2>
+    <p>I’m more interested in the DESIGN Path. I am interested in solving user problems and polishing my prototyping skills in Figma and ProtoPie. I didn’t choose ART Path as I’m not too invested in motion graphics.</p>
+    <p>I’m more interested in working collaboratively. The more people, I get to take on a bigger project that can target more problems user face. We also get to learn from each other in real time.</p>
+    <h3>Possible Project Directions</h3>
+    <ol>
+      <li>Smart Medication Reminder. A physical system designed to help two user groups (caregivers and patients) coordinate medication routines. This benefits both groups by allowing caregivers to monitor medication routines anytime, anywhere, while giving patients greater autonomy and control over their own information.</li>
+      <li>Smarts Care Communicator. A bedside communication device designed for people with limited mobility or difficulty using complex technology. This benefits both groups by reducing the need for frequent check-ins for caregivers, and allowing patients to communicate their needs more independently.</li>
+    </ol>
+    <div class="grid">
+      <img src="images/Research/10.jpeg" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+      <img src="images/Research/11.jpeg" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+      <img src="images/Research/12.webp" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- Boilerplate -->
+  <section id="ProjectConcept" class="w3-container content-section">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Project 1 Concept</b></h1>
+    <hr class="w3-round">
+    <h2>Project 1 Concept</h2>
+    <p>I will focus on designing the Smart Medication Box + Reminder from the perspective of the person taking the medication, also known as the Care Recipient.</p>
+    <p>The system consists of two connected components: an Arduino-based physical device and a mobile app. The physical device handles medication reminders and confirmation, while the app receives updates so the caregiver can monitor the patient's medication routine remotely. This allows each user to fulfil their responsibilities without requiring both to interact with the app equally.</p>
+    <p>When it is time to take medication, the Arduino will activate the OLED display, buzzer, and LED to show the current time and provide audible and visual reminders. The medication box will connect to the Arduino, using a light sensor to detect when the box is opened and an accelerometer to detect movement. After taking the medication, the Care Recipient will press a button on the device to confirm completion. The Arduino will then send this confirmation to the mobile app, which will update the medication status and notify the Accountability Partner with a message such as, “XX (Medication) was taken at XX AM.”</p>
+    <p>Although the concept makes use of several Arduino functions, I am still exploring which features are essential to the experience. In Project 2, I plan to investigate the technical feasibility of connecting the physical device to the app and test whether the interactions are simple and useful for both users.</p>
+    <img class="project-concept-image" src="images/Concept/concept.jpg" style="width:100%" onclick="onClick(this)" alt="test2Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+  </section>
+  
+  <!-- Modal for full-size images on click -->
+  <div id="modal01" class="w3-modal w3-grey" style="padding-top:0" onclick="this.style.display='none'">
+    <span class="w3-button w3-black w3-xxlarge w3-display-topright">×</span>
+    <div class="w3-modal-content w3-center w3-transparent" style="padding:20px">
+      <img id="img01" class="w3-image" alt="">
+      <h2 id="caption" class="modal-caption"></h2>
+    </div>
+  </div>
+</main>
+
+<!-- W3.CSS Container -->
+<footer class="w3-container page-footer">
+  <p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p>
+</footer>
+
+<script>
+
+// Modal Image Gallery
+function onClick(element) {
+  var modalImage = document.getElementById("img01");
+  modalImage.src = element.src;
+  modalImage.alt = element.alt;
+
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.textContent = element.alt;
+}
+</script>
+
+</body>
+</html>
